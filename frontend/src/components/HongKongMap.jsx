@@ -9,7 +9,7 @@ const createCustomIcon = (count, color) => {
   return L.divIcon({
     html: `<div style="
       background-color: ${color};
-      border-radius: 50%;g
+      border-radius: 50%;
       width: 30px;
       height: 30px;
       display: flex;
@@ -37,8 +37,8 @@ const colorScale = scaleLinear()
 
 const HongKongMap = () => {
   return (
-    <div style={{ width: '100%', height: '100%' }}>
-      <MapContainer center={[22.3193, 114.1694]} zoom={12} style={{ height: '100%', width: '100%' }}>
+    <div style={{ position: 'relative', width: '100%', paddingTop: '75%' /* 16:9 Aspect Ratio */ }}>
+      <MapContainer center={[22.3193, 114.1694]} zoom={12} style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}>
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
