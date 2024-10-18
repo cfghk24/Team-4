@@ -17,7 +17,9 @@ import DashboardCard10 from '../partials/dashboard/DashboardCard10';
 import DashboardCard11 from '../partials/dashboard/DashboardCard11';
 import DashboardCard12 from '../partials/dashboard/DashboardCard12';
 import DashboardCard13 from '../partials/dashboard/DashboardCard13';
+import DashboardCard14 from '../partials/dashboard/DashboardCard14';
 import Banner from '../partials/Banner';
+import HongKongMap from '../components/HongKongMap';
 
 function Dashboard() {
 
@@ -69,30 +71,14 @@ function Dashboard() {
               {/* Line chart (Acme Plus) */}
               <DashboardCard06 />
               {/* Line chart (Acme Advanced) */}
-              <DashboardCard02 />
+              <DashboardCard14 />
               {/* Line chart (Acme Professional) */}
               <DashboardCard03 />
-              {/* Bar chart (Direct vs Indirect) */}
+              {/* Bar chart (Age Distribution) */}
               <DashboardCard04 />
               {/* Line chart (Real Time Value) */}
               <DashboardCard05 />
               {/* Doughnut chart (Type of pet owned) */}
-              <DashboardCard06 />
-              {/* Table (Top Channels) */}
-              <DashboardCard07 />
-              {/* Line chart (Sales Over Time) */}
-              <DashboardCard08 />
-              {/* Stacked bar chart (Sales VS Refunds) */}
-              <DashboardCard09 />
-              {/* Card (Customers) */}
-              <DashboardCard10 />
-              {/* Card (Reasons for Refunds) */}
-              <DashboardCard11 />
-              {/* Card (Recent Activity) */}
-              <DashboardCard12 />
-              {/* Card (Income/Expenses) */}
-              <DashboardCard13 />
-              
             </div>
 
           </div>
