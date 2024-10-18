@@ -2,12 +2,14 @@
 
 # Import flask and datetime module for showing date and time
 from flask import Flask, request, jsonify
+from flask_cors import CORS, cross_origin
 import datetime
 import requests
 import json
 
 # Initializing flask app
 app = Flask(__name__)
+cors = CORS(app)
 
 OPENROUTER_API_KEY = ""
 
