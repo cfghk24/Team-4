@@ -1,7 +1,7 @@
 # Filename - server.py
 
 # Import flask and datetime module for showing date and time
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 import datetime
 import requests
 import json
@@ -26,28 +26,54 @@ def get_time():
     })
 
 
-@app.route('/get_suggestions')
+@app.route('/get_suggestions', methods = ['GET', 'POST'])
 def get_suggestions():
-    prompt = (
-        "Generate a comprehensive list of innovative marketing strategies and events for the SPCA Hong Kong, "
-        "an organization dedicated to ending animal cruelty and promoting animal welfare. Consider the following points:\n"
-        "1. Historical Context: Reflect on the performance of past marketing events hosted by SPCA HK, such as the collaboration with Hello Kitty and the 'A Dog Is A Dog, A Cat Is A Cat' campaign. Analyze what worked well and what could be improved.\n"
-        "2. Target Audience: Identify key demographics that SPCA HK aims to reach, including animal lovers, potential pet owners, and families. Suggest tailored strategies to engage these groups effectively.\n"
-        "3. Digital Engagement: Propose ways to leverage technology and social media platforms to enhance outreach efforts. Consider interactive campaigns, virtual events, or educational webinars that could attract a broader audience.\n"
-        "4. Community Involvement: Suggest community-based events or partnerships with local businesses that could raise awareness about animal welfare issues while fostering a sense of community support.\n"
-        "5. Educational Initiatives: Recommend programs that educate the public about responsible pet ownership, animal rights, and the importance of adoption over purchasing pets.\n"
-        "6. Fundraising Events: Create ideas for fundraising events that could also serve as awareness campaigns, such as charity runs, pet fairs, or themed adoption days.\n"
-        "7. Collaborations: Explore potential collaborations with influencers, celebrities, or other organizations that align with SPCA HK’s mission to amplify their message.\n"
-        "8. Feedback Mechanism: Include strategies for collecting feedback from participants in past events to refine future initiatives based on community input.\n"
-        "The goal is to create actionable strategies that not only raise awareness about animal welfare but also attract more supporters and users to SPCA HK's programs and services.\n"
-        "Follow the respond structure:\n"
-        "Event 1 name: content\n"
-        "Event 1 description: content\n"
-        "Event 2 name: content\n"
-        "Event 2 description: content\n"
-        "..."
-    )
-
+    prompt = ""
+    
+    if request.method == 'GET':
+        prompt = (
+            "Generate a comprehensive list of innovative marketing strategies and events for the SPCA Hong Kong, "
+            "an organization dedicated to ending animal cruelty and promoting animal welfare. Consider the following points:\n"
+            "1. Historical Context: Reflect on the performance of past marketing events hosted by SPCA HK, such as the collaboration with Hello Kitty and the 'A Dog Is A Dog, A Cat Is A Cat' campaign. Analyze what worked well and what could be improved.\n"
+            "2. Target Audience: Identify key demographics that SPCA HK aims to reach, including animal lovers, potential pet owners, and families. Suggest tailored strategies to engage these groups effectively.\n"
+            "3. Digital Engagement: Propose ways to leverage technology and social media platforms to enhance outreach efforts. Consider interactive campaigns, virtual events, or educational webinars that could attract a broader audience.\n"
+            "4. Community Involvement: Suggest community-based events or partnerships with local businesses that could raise awareness about animal welfare issues while fostering a sense of community support.\n"
+            "5. Educational Initiatives: Recommend programs that educate the public about responsible pet ownership, animal rights, and the importance of adoption over purchasing pets.\n"
+            "6. Fundraising Events: Create ideas for fundraising events that could also serve as awareness campaigns, such as charity runs, pet fairs, or themed adoption days.\n"
+            "7. Collaborations: Explore potential collaborations with influencers, celebrities, or other organizations that align with SPCA HK’s mission to amplify their message.\n"
+            "8. Feedback Mechanism: Include strategies for collecting feedback from participants in past events to refine future initiatives based on community input.\n"
+            "The goal is to create actionable strategies that not only raise awareness about animal welfare but also attract more supporters and users to SPCA HK's programs and services.\n"
+            "Follow the respond structure:\n"
+            "Event 1 name: content\n"
+            "Event 1 description: content\n"
+            "Event 2 name: content\n"
+            "Event 2 description: content\n"
+            "..."
+        )
+    if request.method == 'POST':
+        # Get the JSON data from the request
+        data = request.get_json()  # This will parse incoming JSON data
+        user_message = data.get('message', '')  # Extract the 'message' 
+        prompt = user_message + (
+            "Generate a comprehensive list of innovative marketing strategies and events for the SPCA Hong Kong, "
+            "an organization dedicated to ending animal cruelty and promoting animal welfare. Consider the following points:\n"
+            "1. Historical Context: Reflect on the performance of past marketing events hosted by SPCA HK, such as the collaboration with Hello Kitty and the 'A Dog Is A Dog, A Cat Is A Cat' campaign. Analyze what worked well and what could be improved.\n"
+            "2. Target Audience: Identify key demographics that SPCA HK aims to reach, including animal lovers, potential pet owners, and families. Suggest tailored strategies to engage these groups effectively.\n"
+            "3. Digital Engagement: Propose ways to leverage technology and social media platforms to enhance outreach efforts. Consider interactive campaigns, virtual events, or educational webinars that could attract a broader audience.\n"
+            "4. Community Involvement: Suggest community-based events or partnerships with local businesses that could raise awareness about animal welfare issues while fostering a sense of community support.\n"
+            "5. Educational Initiatives: Recommend programs that educate the public about responsible pet ownership, animal rights, and the importance of adoption over purchasing pets.\n"
+            "6. Fundraising Events: Create ideas for fundraising events that could also serve as awareness campaigns, such as charity runs, pet fairs, or themed adoption days.\n"
+            "7. Collaborations: Explore potential collaborations with influencers, celebrities, or other organizations that align with SPCA HK’s mission to amplify their message.\n"
+            "8. Feedback Mechanism: Include strategies for collecting feedback from participants in past events to refine future initiatives based on community input.\n"
+            "The goal is to create actionable strategies that not only raise awareness about animal welfare but also attract more supporters and users to SPCA HK's programs and services.\n"
+            "Follow the respond structure:\n"
+            "Event 1 name: content\n"
+            "Event 1 description: content\n"
+            "Event 2 name: content\n"
+            "Event 2 description: content\n"
+            "..."
+        )
+        
     response = requests.post(
         url="https://openrouter.ai/api/v1/chat/completions",
         headers={
