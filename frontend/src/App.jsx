@@ -14,6 +14,7 @@ import Dashboard from './pages/Dashboard';
 import EngagementConversion from './pages/EngagementConversion';
 import Event from './pages/Events';
 import CreateEvent from './pages/CreateEvents';
+import Suggestions from './pages/Suggestions';
 
 
 function App() {
@@ -33,6 +34,8 @@ function App() {
         <Route path="/events" element={<Event />} />
         <Route path="/events/create" element={<CreateEvent />} />
         <Route path="/pages/EngagementConversion" element={<EngagementConversion />} />
+        <Route path="/pages/" element={<EngagementConversion />} />
+        <Route path="/suggestions" element={<Suggestions />} />
       </Routes>
     </>
   );
