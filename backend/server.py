@@ -2,12 +2,14 @@
 
 # Import flask and datetime module for showing date and time
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import datetime
 import requests
 import json
 
 # Initializing flask app
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 OPENROUTER_API_KEY = ""
 
@@ -43,6 +45,7 @@ def get_suggestions():
             "7. Collaborations: Explore potential collaborations with influencers, celebrities, or other organizations that align with SPCA HK’s mission to amplify their message.\n"
             "8. Feedback Mechanism: Include strategies for collecting feedback from participants in past events to refine future initiatives based on community input.\n"
             "The goal is to create actionable strategies that not only raise awareness about animal welfare but also attract more supporters and users to SPCA HK's programs and services.\n"
+            "Using the data we collected from our past events, Dog owners is the majority for out-door activities\n"
             "Follow the respond structure:\n"
             "Event 1 name: content\n"
             "Event 1 description: content\n"
