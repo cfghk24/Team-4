@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 function Event() {
   const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
   const [events, setEvents] = useState([]);
-  const [selectedEvents, setSelectedEvents] = useState([]); // Track selected events
   const navigate = useNavigate();
 
   // Dummy events data
@@ -25,30 +24,8 @@ function Event() {
     setEvents(dummyEvents); // Load dummy events on component mount
   }, []);
 
-  // Handle the selection of an individual event
-  const handleSelectEvent = (id) => {
-    if (selectedEvents.includes(id)) {
-      setSelectedEvents(selectedEvents.filter((eventId) => eventId !== id)); // Deselect event
-    } else {
-      setSelectedEvents([...selectedEvents, id]); // Select event
-    }
-  };
-
-  // Handle the select all checkbox
-  const handleSelectAll = () => {
-    if (selectedEvents.length === events.length) {
-      setSelectedEvents([]); // Deselect all
-    } else {
-      setSelectedEvents(events.map((event) => event.id)); // Select all
-    }
-  };
-
   const handleCreateEventClick = () => {
     navigate('create'); // Navigate to /events/create when clicked
-  };
-
-  const handleEditClick = (id) => {
-    navigate(`/events/edit/${id}`); // Navigate to edit page (assuming /events/edit/:id)
   };
 
   return (
@@ -99,47 +76,22 @@ function Event() {
 
             </div>
 
-            {/* Event List Table */}
+            {/* Event List Grid */}
             <div className="bg-white dark:bg-gray-800 p-4 shadow-lg rounded-lg">
               <table className="min-w-full table-auto">
                 <thead>
                   <tr className="bg-gray-200 text-left">
-                    <th className="px-4 py-2">
-                      <input
-                        type="checkbox"
-                        className="w-4 h-4"
-                        checked={selectedEvents.length === events.length}
-                        onChange={handleSelectAll}
-                      />
-                    </th>
                     <th className="px-4 py-2">Event Name</th>
                     <th className="px-4 py-2">Date</th>
                     <th className="px-4 py-2">Location</th>
-                    <th className="px-4 py-2">Edit</th> {/* New Edit column */}
                   </tr>
                 </thead>
                 <tbody>
-                  {events.map((event) => (
-                    <tr key={event.id} className="border-t hover:bg-gray-100 dark:hover:bg-gray-700">
-                      <td className="px-4 py-2">
-                        <input
-                          type="checkbox"
-                          className="w-4 h-4"
-                          checked={selectedEvents.includes(event.id)}
-                          onChange={() => handleSelectEvent(event.id)}
-                        />
-                      </td>
+                  {events.map(event => (
+                    <tr key={event.id} className="border-t">
                       <td className="px-4 py-2">{event.name}</td>
                       <td className="px-4 py-2">{event.date}</td>
                       <td className="px-4 py-2">{event.location}</td>
-                      <td className="px-4 py-2">
-                        <button
-                          className="text-blue-600 hover:underline"
-                          onClick={() => handleEditClick(event.id)}
-                        >
-                          Edit
-                        </button>
-                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -157,4 +109,3 @@ function Event() {
 }
 
 export default Event;
-
