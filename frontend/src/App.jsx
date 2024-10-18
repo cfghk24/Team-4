@@ -12,6 +12,8 @@ import './charts/ChartjsConfig';
 // Import pages
 import Dashboard from './pages/Dashboard';
 import EngagementConversion from './pages/EngagementConversion';
+import Event from './pages/Events';
+
 
 function App() {
 
@@ -27,6 +29,7 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<Dashboard />} />
+        <Route path="/events" element={<Event />} />
         <Route path="/pages/EngagementConversion" element={<EngagementConversion />} />
       </Routes>
     </>

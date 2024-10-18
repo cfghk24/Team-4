@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chart.js": "^4.4.5"
+    "chart.js": "^4.4.5",
+    "d3-scale": "^4.0.2",
+    "react-leaflet": "^4.2.1",
+    "recharts": "^2.13.0"
   }
 }

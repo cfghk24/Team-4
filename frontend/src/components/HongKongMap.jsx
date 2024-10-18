@@ -9,7 +9,7 @@ const createCustomIcon = (count, color) => {
   return L.divIcon({
     html: `<div style="
       background-color: ${color};
-      border-radius: 50%;
+      border-radius: 50%;g
       width: 30px;
       height: 30px;
       display: flex;
