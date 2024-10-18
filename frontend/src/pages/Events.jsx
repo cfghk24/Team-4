@@ -8,11 +8,8 @@ import Banner from '../partials/Banner'; // Reusing banner
 function Event() {
   const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
   const [events, setEvents] = useState([]);
-<<<<<<< HEAD
-=======
   const [selectedEvents, setSelectedEvents] = useState([]); // Track selected events
   const navigate = useNavigate();
->>>>>>> 11ff10c6920b162eba2dde197ac658d3334b2d89
 
   // Dummy events data
   const dummyEvents = [
@@ -27,8 +24,6 @@ function Event() {
     setEvents(dummyEvents); // Load dummy events on component mount
   }, []);
 
-<<<<<<< HEAD
-=======
   // Handle the selection of an individual event
   const handleSelectEvent = (id) => {
     if (selectedEvents.includes(id)) {
@@ -55,7 +50,6 @@ function Event() {
     navigate(`/events/edit/${id}`); // Navigate to edit page (assuming /events/edit/:id)
   };
 
->>>>>>> 11ff10c6920b162eba2dde197ac658d3334b2d89
   return (
     <div className="flex h-screen overflow-hidden">
 
