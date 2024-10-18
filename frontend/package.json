@@ -18,7 +18,8 @@
     "react-flatpickr": "^3.10.13",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.20.1",
-    "react-transition-group": "^4.4.5"
+    "react-transition-group": "^4.4.5",
+    "recharts": "^2.13.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
