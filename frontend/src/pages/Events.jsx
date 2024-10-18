@@ -8,6 +8,11 @@ import Banner from '../partials/Banner'; // Reusing banner
 function Event() {
   const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
   const [events, setEvents] = useState([]);
+<<<<<<< HEAD
+=======
+  const [selectedEvents, setSelectedEvents] = useState([]); // Track selected events
+  const navigate = useNavigate();
+>>>>>>> 11ff10c6920b162eba2dde197ac658d3334b2d89
 
   // Dummy events data
   const dummyEvents = [
@@ -22,6 +27,35 @@ function Event() {
     setEvents(dummyEvents); // Load dummy events on component mount
   }, []);
 
+<<<<<<< HEAD
+=======
+  // Handle the selection of an individual event
+  const handleSelectEvent = (id) => {
+    if (selectedEvents.includes(id)) {
+      setSelectedEvents(selectedEvents.filter((eventId) => eventId !== id)); // Deselect event
+    } else {
+      setSelectedEvents([...selectedEvents, id]); // Select event
+    }
+  };
+
+  // Handle the select all checkbox
+  const handleSelectAll = () => {
+    if (selectedEvents.length === events.length) {
+      setSelectedEvents([]); // Deselect all
+    } else {
+      setSelectedEvents(events.map((event) => event.id)); // Select all
+    }
+  };
+
+  const handleCreateEventClick = () => {
+    navigate('create'); // Navigate to /events/create when clicked
+  };
+
+  const handleEditClick = (id) => {
+    navigate(`/events/edit/${id}`); // Navigate to edit page (assuming /events/edit/:id)
+  };
+
+>>>>>>> 11ff10c6920b162eba2dde197ac658d3334b2d89
   return (
     <div className="flex h-screen overflow-hidden">
 
@@ -57,22 +91,47 @@ function Event() {
 
             </div>
 
-            {/* Event List Grid */}
+            {/* Event List Table */}
             <div className="bg-white dark:bg-gray-800 p-4 shadow-lg rounded-lg">
               <table className="min-w-full table-auto">
                 <thead>
                   <tr className="bg-gray-200 text-left">
+                    <th className="px-4 py-2">
+                      <input
+                        type="checkbox"
+                        className="w-4 h-4"
+                        checked={selectedEvents.length === events.length}
+                        onChange={handleSelectAll}
+                      />
+                    </th>
                     <th className="px-4 py-2">Event Name</th>
                     <th className="px-4 py-2">Date</th>
                     <th className="px-4 py-2">Location</th>
+                    <th className="px-4 py-2">Edit</th> {/* New Edit column */}
                   </tr>
                 </thead>
                 <tbody>
-                  {events.map(event => (
-                    <tr key={event.id} className="border-t">
+                  {events.map((event) => (
+                    <tr key={event.id} className="border-t hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <td className="px-4 py-2">
+                        <input
+                          type="checkbox"
+                          className="w-4 h-4"
+                          checked={selectedEvents.includes(event.id)}
+                          onChange={() => handleSelectEvent(event.id)}
+                        />
+                      </td>
                       <td className="px-4 py-2">{event.name}</td>
                       <td className="px-4 py-2">{event.date}</td>
                       <td className="px-4 py-2">{event.location}</td>
+                      <td className="px-4 py-2">
+                        <button
+                          className="text-blue-600 hover:underline"
+                          onClick={() => handleEditClick(event.id)}
+                        >
+                          Edit
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -90,3 +149,4 @@ function Event() {
 }
 
 export default Event;
+
