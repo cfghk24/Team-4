@@ -135,7 +135,6 @@ function EngagementConversion() {
 
             {/* Import Analytics label and Dropdown */}
             <div className="mb-6">
-              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Import Analytics</h2>
               <div className="relative">
                 <button 
                   id="dropdownDefaultButton" 
