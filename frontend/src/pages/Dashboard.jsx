@@ -67,7 +67,7 @@ function Dashboard() {
             <div className="grid grid-cols-12 gap-6">
 
               {/* Line chart (Acme Plus) */}
-              <DashboardCard01 />
+              <DashboardCard06 />
               {/* Line chart (Acme Advanced) */}
               <DashboardCard02 />
               {/* Line chart (Acme Professional) */}
@@ -76,7 +76,7 @@ function Dashboard() {
               <DashboardCard04 />
               {/* Line chart (Real Time Value) */}
               <DashboardCard05 />
-              {/* Doughnut chart (Top Countries) */}
+              {/* Doughnut chart (Type of pet owned) */}
               <DashboardCard06 />
               {/* Table (Top Channels) */}
               <DashboardCard07 />
