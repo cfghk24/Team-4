@@ -34,6 +34,23 @@ function EngagementConversion() {
     { name: 'Visitors', value: 300 },
   ];
 
+  // Mock data for heatmap (Engagement by Time and Platform)
+  const heatmapData = [
+    { time: 'Morning', Instagram: 30, Facebook: 50, YouTube: 20 },
+    { time: 'Afternoon', Instagram: 50, Facebook: 30, YouTube: 40 },
+    { time: 'Evening', Instagram: 70, Facebook: 60, YouTube: 80 },
+    { time: 'Night', Instagram: 20, Facebook: 10, YouTube: 30 },
+  ];
+
+  // Mock data for geolocation (Engagement by Location)
+  const locationData = [
+    { location: 'New York', engagement: 400 },
+    { location: 'London', engagement: 300 },
+    { location: 'Sydney', engagement: 200 },
+    { location: 'Tokyo', engagement: 500 },
+    { location: 'Berlin', engagement: 250 },
+  ];
+
   const COLORS = [
     tailwindConfig().theme.colors.violet[500],
     tailwindConfig().theme.colors.sky[500],
@@ -44,7 +61,8 @@ function EngagementConversion() {
     setDropdownOpen((prevState) => !prevState);
   };
 
-  const toggleDropdownEvent = () => {
+
+  const toggleDropdownEvent= () => {
     setDropdownOpenEvent((prevState) => !prevState);
   };
 
@@ -75,8 +93,8 @@ function EngagementConversion() {
                 <h1 className="text-2xl md:text-3xl text-gray-800 dark:text-gray-100 font-bold">Engagement Conversion</h1>
               </div>
 
-              {/* Right: Actions */}
-              <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+                            {/* Right: Actions */}
+                            <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
                 {/* Filter button */}
                 <FilterButton align="right" />
                 {/* Datepicker */}
@@ -95,7 +113,6 @@ function EngagementConversion() {
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
                     </svg>
                   </button>
-
                   {/* Dropdown menu */}
                   {dropdownOpen && (
                     <div id="dropdown" className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
@@ -116,67 +133,70 @@ function EngagementConversion() {
               </div>
             </div>
 
-            {/* Dropdown Import Button (now below the title) */}
-            <div className="relative mb-6">
-              <button 
-                id="dropdownDefaultButton" 
-                onClick={toggleDropdownEvent}
-                className="text-white bg-violet-500 hover:bg-violet-600 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-900"
-                type="button"
-              >
-                {selectedEvent ? selectedEvent : 'Select Event'}
-                <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
-                </svg>
-              </button>
+            {/* Import Analytics label and Dropdown */}
+            <div className="mb-6">
+              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">Import Analytics</h2>
+              <div className="relative">
+                <button 
+                  id="dropdownDefaultButton" 
+                  onClick={toggleDropdownEvent}
+                  className="text-white bg-violet-500 hover:bg-violet-600 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-900"
+                  type="button"
+                >
+                  {selectedEvent ? selectedEvent : 'Select Event'}
+                  <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                  </svg>
+                </button>
 
-              {/* Dropdown menu */}
-              {dropdownOpenEvent && (
-                <div id="dropdown" className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                  <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                    <li>
-                      <button
-                        onClick={() => handleEventSelection('Event 1')}
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
-                      >
-                        Event 1
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => handleEventSelection('Event 2')}
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
-                      >
-                        Event 2
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => handleEventSelection('Event 3')}
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
-                      >
-                        Event 3
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => handleEventSelection('Event 4')}
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
-                      >
-                        Event 4
-                      </button>
-                    </li>
-                    <li>
-                      <button
-                        onClick={() => handleEventSelection('Event 5')}
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
-                      >
-                        Event 5
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-              )}
+                {/* Dropdown menu */}
+                {dropdownOpenEvent && (
+                  <div id="dropdown" className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                    <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                      <li>
+                        <button
+                          onClick={() => handleEventSelection('Event 1')}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                        >
+                          Event 1
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => handleEventSelection('Event 2')}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                        >
+                          Event 2
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => handleEventSelection('Event 3')}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                        >
+                          Event 3
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => handleEventSelection('Event 4')}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                        >
+                          Event 4
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => handleEventSelection('Event 5')}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                        >
+                          Event 5
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Conditionally render the content only if an event is selected */}
@@ -236,6 +256,43 @@ function EngagementConversion() {
                     </ul>
                   </div>
                 </div>
+
+                {/* Heatmap of Engagement by Time */}
+                <div className="grid grid-cols-12 gap-6 mt-8">
+                  <div className="col-span-12 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
+                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Engagement Heatmap (Time & Platform)</h2>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={heatmapData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="time" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="Instagram" fill={tailwindConfig().theme.colors.violet[500]} />
+                        <Bar dataKey="Facebook" fill={tailwindConfig().theme.colors.sky[500]} />
+                        <Bar dataKey="YouTube" fill={tailwindConfig().theme.colors.violet[800]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* Engagement by Location */}
+                <div className="grid grid-cols-12 gap-6 mt-8">
+                  <div className="col-span-12 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
+                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Engagement by Location</h2>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <BarChart data={locationData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="location" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="engagement" fill={tailwindConfig().theme.colors.violet[500]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+                
 
                 {/* Event Analytics Section */}
                 <div className="mt-8">
