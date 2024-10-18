@@ -10,6 +10,7 @@ import { tailwindConfig } from '../utils/Utils';
 function EngagementConversion() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpenEvent, setDropdownOpenEvent] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(''); // Track selected event
 
   // Mock data for the charts
@@ -41,6 +42,10 @@ function EngagementConversion() {
 
   const toggleDropdown = () => {
     setDropdownOpen((prevState) => !prevState);
+  };
+
+  const toggleDropdownEvent = () => {
+    setDropdownOpenEvent((prevState) => !prevState);
   };
 
   const handleEventSelection = (event) => {
@@ -115,7 +120,7 @@ function EngagementConversion() {
             <div className="relative mb-6">
               <button 
                 id="dropdownDefaultButton" 
-                onClick={toggleDropdown}
+                onClick={toggleDropdownEvent}
                 className="text-white bg-violet-500 hover:bg-violet-600 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-900"
                 type="button"
               >
@@ -126,7 +131,7 @@ function EngagementConversion() {
               </button>
 
               {/* Dropdown menu */}
-              {dropdownOpen && (
+              {dropdownOpenEvent && (
                 <div id="dropdown" className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                   <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                     <li>
