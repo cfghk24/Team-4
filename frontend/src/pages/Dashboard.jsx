@@ -17,6 +17,7 @@ import DashboardCard10 from '../partials/dashboard/DashboardCard10';
 import DashboardCard11 from '../partials/dashboard/DashboardCard11';
 import DashboardCard12 from '../partials/dashboard/DashboardCard12';
 import DashboardCard13 from '../partials/dashboard/DashboardCard13';
+import DashboardCard14 from '../partials/dashboard/DashboardCard14';
 import Banner from '../partials/Banner';
 import HongKongMap from '../components/HongKongMap';
 
@@ -70,7 +71,7 @@ function Dashboard() {
               {/* Line chart (Acme Plus) */}
               <DashboardCard06 />
               {/* Line chart (Acme Advanced) */}
-              <DashboardCard02 />
+              <DashboardCard14 />
               {/* Line chart (Acme Professional) */}
               <DashboardCard03 />
               {/* Bar chart (Age Distribution) */}
