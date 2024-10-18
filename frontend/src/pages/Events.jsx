@@ -8,10 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Event() {
   const [sidebarOpen, setSidebarOpen] = useState(false); // Sidebar state
-  const [events, setEvents] = useState([]); // Dummy events data
-  const [message, setMessage] = useState(''); // State for input field
-  const [suggestions, setSuggestions] = useState([]); // State for server response suggestions
-  const [loading, setLoading] = useState(false); // State to track loading status
+  const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
   // Dummy events data
@@ -29,32 +26,6 @@ function Event() {
 
   const handleCreateEventClick = () => {
     navigate('create'); // Navigate to /events/create when clicked
-  };
-
-  const handleSendMessage = async () => {
-    setLoading(true); // Set loading to true when starting the request
-    try {
-      const response = await fetch('http://127.0.0.1:5000/get_suggestions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message }), // Send the message as JSON
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      console.log(data); // Log the response data for debugging
-      setSuggestions(data.suggestions); // Update state with suggestions
-
-    } catch (error) {
-      console.error('Error sending message:', error);
-    } finally {
-      setLoading(false); // Reset loading state after request is complete
-    }
   };
 
   return (
@@ -91,58 +62,40 @@ function Event() {
                   className="btn bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white"
                   onClick={handleCreateEventClick} // Add onClick handler
                 >
-                  Create Event
+                  <svg
+                    className="fill-current shrink-0 xs:hidden"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                  </svg>
+                  <span className="max-xs:sr-only">Create Event</span>
                 </button>
               </div>
 
             </div>
 
-            {/* Input field and button for sending message */}
-            <div className="mb-4">
-              <input 
-                type="text" 
-                value={message} 
-                onChange={(e) => setMessage(e.target.value)} 
-                placeholder="example: 'target group: age 50-70'" 
-                className="border rounded p-2 mr-2 w-full" // Adjusted for full width
-                style={{ width: '400px' }} // Optional fixed width style
-              />
-              <button 
-                onClick={handleSendMessage} 
-                className="btn bg-blue-600 text-white hover:bg-blue-500"
-              >
-                Generate marketing strategy/events
-              </button>
-            </div>
-
-            {/* Suggestions List Grid */}
+            {/* Event List Grid */}
             <div className="bg-white dark:bg-gray-800 p-4 shadow-lg rounded-lg">
-              <h2 className="text-xl font-bold mb-4">Suggestions</h2>
-              {loading ? ( // Check if loading
-                <p>Loading suggestions...</p> // Show loading message while waiting for response
-              ) : suggestions.length > 0 ? (
-                <>
-                  {/* <p className="mb-2">Number of suggestions: {suggestions.length}</p> Display number of suggestions */}
-                  <table className="min-w-full table-auto">
-                    <thead>
-                      {/* <tr className="bg-gray-200 text-left">
-                        <th className="px-4 py-2">Suggestion</th>
-                      </tr> */}
-                    </thead>
-                    <tbody>
-                      {suggestions.map((suggestion, index) => (
-                        <tr key={index} className="border-t">
-                          <td className="px-4 py-4">
-                            {index + 1}. {suggestion.idea} {/* Displaying index + 1 for numbering */}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </>
-              ) : (
-                <p>No suggestions available.</p>
-              )}
+              <table className="min-w-full table-auto">
+                <thead>
+                  <tr className="bg-gray-200 text-left">
+                    <th className="px-4 py-2">Event Name</th>
+                    <th className="px-4 py-2">Date</th>
+                    <th className="px-4 py-2">Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {events.map(event => (
+                    <tr key={event.id} className="border-t">
+                      <td className="px-4 py-2">{event.name}</td>
+                      <td className="px-4 py-2">{event.date}</td>
+                      <td className="px-4 py-2">{event.location}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
           </div>
