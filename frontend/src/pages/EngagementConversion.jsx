@@ -10,6 +10,8 @@ import { tailwindConfig } from '../utils/Utils';
 function EngagementConversion() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpenEvent, setDropdownOpenEvent] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(''); // Track selected event
 
   // Mock data for the charts
   const trafficData = [
@@ -42,6 +44,15 @@ function EngagementConversion() {
     setDropdownOpen((prevState) => !prevState);
   };
 
+  const toggleDropdownEvent = () => {
+    setDropdownOpenEvent((prevState) => !prevState);
+  };
+
+  const handleEventSelection = (event) => {
+    setSelectedEvent(event);
+    setDropdownOpen(false);
+  };
+
   return (
     <div className="flex h-screen overflow-hidden">
 
@@ -57,7 +68,7 @@ function EngagementConversion() {
         <main className="grow">
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
-            {/* Page actions */}
+            {/* Page title */}
             <div className="sm:flex sm:justify-between sm:items-center mb-8">
               {/* Left: Title */}
               <div className="mb-4 sm:mb-0">
@@ -102,87 +113,146 @@ function EngagementConversion() {
                     </div>
                   )}
                 </div>
-
-                {/* Add view button */}
-                <button className="btn bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white">
-                  <svg className="fill-current shrink-0 xs:hidden" width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                  </svg>
-                  <span className="max-xs:sr-only">Add View</span>
-                </button>                
               </div>
             </div>
 
-            {/* Overview Section */}
-            <div className="grid grid-cols-12 gap-6">
-              <div className="col-span-12 lg:col-span-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Traffic & Engagement Overview</h2>
-                <ResponsiveContainer width="100%" height={300}>
-                  <LineChart data={trafficData}
-                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="Website" stroke="#8884d8" />
-                    <Line type="monotone" dataKey="Instagram" stroke="#82ca9d" />
-                    <Line type="monotone" dataKey="QRScans" stroke="#ffc658" />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
+            {/* Dropdown Import Button (now below the title) */}
+            <div className="relative mb-6">
+              <button 
+                id="dropdownDefaultButton" 
+                onClick={toggleDropdownEvent}
+                className="text-white bg-violet-500 hover:bg-violet-600 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-900"
+                type="button"
+              >
+                {selectedEvent ? selectedEvent : 'Select Event'}
+                <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                </svg>
+              </button>
 
-              <div className="col-span-12 lg:col-span-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
-                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Engagement to Conversion</h2>
-                <ResponsiveContainer width="100%" height={300}>
-                  <PieChart>
-                    <Pie
-                      data={pieData}
-                      cx="50%"
-                      cy="50%"
-                      outerRadius={80}
-                      fill="#8884d8"
-                      dataKey="value"
-                      label
-                    >
-                      {pieData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
-              </div>
+              {/* Dropdown menu */}
+              {dropdownOpenEvent && (
+                <div id="dropdown" className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                  <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                    <li>
+                      <button
+                        onClick={() => handleEventSelection('Event 1')}
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                      >
+                        Event 1
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => handleEventSelection('Event 2')}
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                      >
+                        Event 2
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => handleEventSelection('Event 3')}
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                      >
+                        Event 3
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => handleEventSelection('Event 4')}
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                      >
+                        Event 4
+                      </button>
+                    </li>
+                    <li>
+                      <button
+                        onClick={() => handleEventSelection('Event 5')}
+                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-full text-left"
+                      >
+                        Event 5
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
 
-            {/* Recommendations Section */}
-            <div className="mt-8">
-              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Recommendations</h2>
-              <div className="bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
-                <ul className="list-disc ml-6 text-gray-800 dark:text-gray-100">
-                  <li>Organize more targeted events based on user engagement patterns.</li>
-                  <li>Leverage Instagram stories to directly engage with users who scan QR codes at meetups.</li>
-                  <li>Analyze website traffic to create personalized product recommendations.</li>
-                  <li>Offer exclusive discounts to users who engage with multiple platforms (e.g., Instagram and YouTube).</li>
-                </ul>
-              </div>
-            </div>
+            {/* Conditionally render the content only if an event is selected */}
+            {selectedEvent && (
+              <>
+                {/* Overview Section */}
+                <div className="grid grid-cols-12 gap-6">
+                  <div className="col-span-12 lg:col-span-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
+                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Traffic & Engagement Overview</h2>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <LineChart data={trafficData}
+                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey="Website" stroke="#8884d8" />
+                        <Line type="monotone" dataKey="Instagram" stroke="#82ca9d" />
+                        <Line type="monotone" dataKey="QRScans" stroke="#ffc658" />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
 
-            {/* Event Analytics Section */}
-            <div className="mt-8">
-              <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Event Success Rates</h2>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={eventSuccessData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="successRate" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
+                  <div className="col-span-12 lg:col-span-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
+                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Engagement to Conversion</h2>
+                    <ResponsiveContainer width="100%" height={300}>
+                      <PieChart>
+                        <Pie
+                          data={pieData}
+                          cx="50%"
+                          cy="50%"
+                          outerRadius={80}
+                          fill="#8884d8"
+                          dataKey="value"
+                          label
+                        >
+                          {pieData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
 
+                {/* Recommendations Section */}
+                <div className="mt-8">
+                  <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Recommendations</h2>
+                  <div className="bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
+                    <ul className="list-disc ml-6 text-gray-800 dark:text-gray-100">
+                      <li>Organize more targeted events based on user engagement patterns.</li>
+                      <li>Leverage Instagram stories to directly engage with users who scan QR codes at meetups.</li>
+                      <li>Analyze website traffic to create personalized product recommendations.</li>
+                      <li>Offer exclusive discounts to users who engage with multiple platforms (e.g., Instagram and YouTube).</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Event Analytics Section */}
+                <div className="mt-8">
+                  <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Event Success Rates</h2>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={eventSuccessData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="successRate" fill="#8884d8" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </>
+            )}
           </div>
         </main>
 
