@@ -32,6 +32,14 @@ function EngagementConversion() {
     { name: 'Visitors', value: 300 },
   ];
 
+  const demographicData = [
+    { name: '16-30', value: 16 },
+    { name: '31-40', value: 23 },
+    { name: '41-50', value: 24 },
+    { name: '51-60', value: 21 },
+    { name: '61 and above', value: 16 },
+  ];
+
   const COLORS = [
     tailwindConfig().theme.colors.violet[500],
     tailwindConfig().theme.colors.sky[500],
@@ -115,6 +123,7 @@ function EngagementConversion() {
 
             {/* Overview Section */}
             <div className="grid grid-cols-12 gap-6">
+              {/* Traffic & Engagement Overview */}
               <div className="col-span-12 lg:col-span-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Traffic & Engagement Overview</h2>
                 <ResponsiveContainer width="100%" height={300}>
@@ -132,6 +141,7 @@ function EngagementConversion() {
                 </ResponsiveContainer>
               </div>
 
+              {/* Engagement to Conversion Pie Chart */}
               <div className="col-span-12 lg:col-span-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
                 <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Engagement to Conversion</h2>
                 <ResponsiveContainer width="100%" height={300}>
@@ -150,6 +160,34 @@ function EngagementConversion() {
                       ))}
                     </Pie>
                     <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Demographics Section */}
+            <div className="grid grid-cols-12 gap-6 mt-8">
+              <div className="col-span-12 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
+                <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Demographic Breakdown of SPCA Members</h2>
+                <ResponsiveContainer width="100%" height={300}>
+                  <PieChart>
+                    <Pie
+                      data={demographicData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={100}
+                      fill="#8884d8"
+                      paddingAngle={5}
+                      dataKey="value"
+                      label
+                    >
+                      {demographicData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
