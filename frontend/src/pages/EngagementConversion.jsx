@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar } from 'recharts';
-
 import Sidebar from '../partials/Sidebar'; 
 import Header from '../partials/Header';   
 import FilterButton from '../components/DropdownFilter'; 
 import Datepicker from '../components/Datepicker'; 
 import Banner from '../partials/Banner'; 
+import { tailwindConfig } from '../utils/Utils';
 
 function EngagementConversion() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // Mock data for the charts
   const trafficData = [
@@ -31,7 +32,15 @@ function EngagementConversion() {
     { name: 'Visitors', value: 300 },
   ];
 
-  const COLORS = ['#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = [
+    tailwindConfig().theme.colors.violet[500],
+    tailwindConfig().theme.colors.sky[500],
+    tailwindConfig().theme.colors.violet[800],
+  ];
+
+  const toggleDropdown = () => {
+    setDropdownOpen((prevState) => !prevState);
+  };
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -57,8 +66,44 @@ function EngagementConversion() {
 
               {/* Right: Actions */}
               <div className="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+                {/* Filter button */}
                 <FilterButton align="right" />
+                {/* Datepicker */}
                 <Datepicker align="right" />
+
+                {/* Dropdown Import Button */}
+                <div className="relative">
+                  <button 
+                    id="dropdownDefaultButton" 
+                    onClick={toggleDropdown}
+                    className="text-white bg-violet-500 hover:bg-violet-600 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-violet-600 dark:hover:bg-violet-700 dark:focus:ring-violet-900"
+                    type="button"
+                  >
+                    Import Data
+                    <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
+                    </svg>
+                  </button>
+
+                  {/* Dropdown menu */}
+                  {dropdownOpen && (
+                    <div id="dropdown" className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                      <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                          <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Instagram Analytics</a>
+                        </li>
+                        <li>
+                          <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">YouTube Analytics</a>
+                        </li>
+                        <li>
+                          <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Facebook Analytics</a>
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                {/* Add view button */}
                 <button className="btn bg-gray-900 text-gray-100 hover:bg-gray-800 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-white">
                   <svg className="fill-current shrink-0 xs:hidden" width="16" height="16" viewBox="0 0 16 16">
                     <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
