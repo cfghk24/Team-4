@@ -34,7 +34,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/events" element={<Event />} />
         <Route path="/events/create" element={<CreateEvent />} />
-        <Route path="/pages/EngagementConversion" element={<EngagementConversion />} />
+        <Route path="events/pages/EngagementConversion" element={<EngagementConversion />} />
         <Route path="/pages/" element={<EngagementConversion />} />
         <Route path="/suggestions" element={<Suggestions />} />
       </Routes>
