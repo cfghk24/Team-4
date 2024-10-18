@@ -56,22 +56,25 @@ function Event() {
             </div>
 
             {/* Event List Grid */}
-            <div className="grid grid-cols-12 gap-6">
-              {/* Column Headers */}
-              <div className="col-span-12 grid grid-cols-3 bg-gray-200 p-2 rounded font-bold">
-                <div>Event Name</div>
-                <div>Date</div>
-                <div>Location</div>
-              </div>
-
-              {/* List of Events */}
-              {events.map(event => (
-                <div key={event.id} className="col-span-12 grid grid-cols-3 bg-white dark:bg-gray-800 p-2 rounded-lg shadow">
-                  <div>{event.name}</div>
-                  <div>{event.date}</div>
-                  <div>{event.location}</div>
-                </div>
-              ))}
+            <div className="bg-white dark:bg-gray-800 p-4 shadow-lg rounded-lg">
+              <table className="min-w-full table-auto">
+                <thead>
+                  <tr className="bg-gray-200 text-left">
+                    <th className="px-4 py-2">Event Name</th>
+                    <th className="px-4 py-2">Date</th>
+                    <th className="px-4 py-2">Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {events.map(event => (
+                    <tr key={event.id} className="border-t">
+                      <td className="px-4 py-2">{event.name}</td>
+                      <td className="px-4 py-2">{event.date}</td>
+                      <td className="px-4 py-2">{event.location}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
           </div>
