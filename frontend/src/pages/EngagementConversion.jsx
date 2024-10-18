@@ -34,6 +34,32 @@ function EngagementConversion() {
     { name: 'Visitors', value: 300 },
   ];
 
+  // Demographic data for pie chart
+  const demographicData = [
+    { name: '16-30', value: 16 },
+    { name: '31-40', value: 23 },
+    { name: '41-50', value: 24 },
+    { name: '51-60', value: 21 },
+    { name: '61 and above', value: 16 },
+  ];
+
+    // Mock data for heatmap (Engagement by Time and Platform)
+  const heatmapData = [
+    { time: 'Morning', Instagram: 30, Facebook: 50, YouTube: 20 },
+    { time: 'Afternoon', Instagram: 50, Facebook: 30, YouTube: 40 },
+    { time: 'Evening', Instagram: 70, Facebook: 60, YouTube: 80 },
+    { time: 'Night', Instagram: 20, Facebook: 10, YouTube: 30 },
+  ];
+
+  // Mock data for geolocation (Engagement by Location)
+  const locationData = [
+    { location: 'New York', engagement: 400 },
+    { location: 'London', engagement: 300 },
+    { location: 'Sydney', engagement: 200 },
+    { location: 'Tokyo', engagement: 500 },
+    { location: 'Berlin', engagement: 250 },
+  ];
+
   const COLORS = [
     tailwindConfig().theme.colors.violet[500],
     tailwindConfig().theme.colors.sky[500],
@@ -251,6 +277,70 @@ function EngagementConversion() {
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
+
+                {/* Demographic Pie Chart Section */}
+                <div className="mt-8">
+                  <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Demographic Breakdown of SPCA Members</h2>
+                  <div className="col-span-12 lg:col-span-6 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
+                    <ResponsiveContainer width="100%" height={300}>
+                      <PieChart>
+                        <Pie
+                          data={demographicData}
+                          cx="50%"
+                          cy="50%"
+                          innerRadius={60}
+                          outerRadius={100}
+                          fill="#8884d8"
+                          paddingAngle={5}
+                          dataKey="value"
+                          label
+                        >
+                          {demographicData.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip />
+                        <Legend />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* Heatmap of Engagement by Time */}
+<div className="grid grid-cols-12 gap-6 mt-8">
+  <div className="col-span-12 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
+    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Engagement Heatmap (Time & Platform)</h2>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={heatmapData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="time" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="Instagram" fill={tailwindConfig().theme.colors.violet[500]} />
+        <Bar dataKey="Facebook" fill={tailwindConfig().theme.colors.sky[500]} />
+        <Bar dataKey="YouTube" fill={tailwindConfig().theme.colors.violet[800]} />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+</div>
+
+{/* Engagement by Location */}
+<div className="grid grid-cols-12 gap-6 mt-8">
+  <div className="col-span-12 bg-white dark:bg-gray-800 p-6 shadow-lg rounded-lg">
+    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-4">Engagement by Location</h2>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart data={locationData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="location" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="engagement" fill={tailwindConfig().theme.colors.violet[500]} />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+</div>
               </>
             )}
           </div>
