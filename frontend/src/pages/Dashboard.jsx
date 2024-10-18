@@ -72,7 +72,7 @@ function Dashboard() {
               <DashboardCard02 />
               {/* Line chart (Acme Professional) */}
               <DashboardCard03 />
-              {/* Bar chart (Direct vs Indirect) */}
+              {/* Bar chart (Age Distribution) */}
               <DashboardCard04 />
               {/* Line chart (Real Time Value) */}
               <DashboardCard05 />
